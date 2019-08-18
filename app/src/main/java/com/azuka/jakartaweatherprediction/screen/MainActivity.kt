@@ -8,7 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.azuka.jakartaweatherprediction.R
 import com.azuka.jakartaweatherprediction.databinding.ActivityMainBinding
-import com.azuka.jakartaweatherprediction.entities.Jakarta
+import com.azuka.jakartaweatherprediction.formatToDate
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,12 +29,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.hourly.adapter = adapter
 
-        viewModel.infoWeatherList.observe(this, Observer { infoList ->
+        viewModel.hourlyWeatherToday.observe(this, Observer { infoList ->
             infoList?.let {
                 adapter.submitList(infoList)
             }
         })
 
-        Log.i("Jakarta Coordinate", Jakarta().coordinate.lat.toString() + " " + Jakarta().coordinate.lon.toString())
+//        Log.i("TimeZone", TimeZone.getDefault().rawOffset.toString())
+//        Log.i("CurrentTimeMillis", System.currentTimeMillis().toString())
+//        Log.i("CurrentTimeFormat", Date(System.currentTimeMillis()).toString())
     }
 }

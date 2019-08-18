@@ -29,7 +29,7 @@
                 android:textColor="@android:color/black" android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"/>
         <TextView
-                android:text="@{viewModel.cityInfo.list[0].dateText}"
+                android:text="@{viewModel.todayString}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/date"
@@ -37,7 +37,7 @@
                 android:layout_marginTop="16dp" tools:text="18 Aug 2019" android:textColor="@android:color/black"
                 android:textSize="18sp"/>
         <TextView
-                android:text="@{Double.toString(viewModel.cityInfo.list[0].main.temperature)}"
+                app:temperatureFormat="@{viewModel.cityInfo.list[0]}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/temperature" android:layout_marginTop="8dp"
