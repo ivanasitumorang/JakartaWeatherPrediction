@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Jakarta Weather Prediction</string>
+    <string name="windspeed_format">%.2f m/s</string>
+    <string name="degree_celcius_format">%.2f\u2103</string>
+</resources>
