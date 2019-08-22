@@ -9,7 +9,7 @@
             android:layout_height="match_parent">
 
         <TextView
-                app:temperatureFormat="@{infoWeather}"
+                app:temperatureFormat="@{infoWeather.main.temperature}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/temperature"
@@ -26,7 +26,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/wind_speed" app:layout_constraintTop_toBottomOf="@+id/time"
         />
         <TextView
-                app:timeFormat="@{infoWeather}"
+                app:timeFormat="@{infoWeather.dateText}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/time" android:layout_marginTop="8dp"
@@ -35,7 +35,7 @@
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="@+id/wind_speed"/>
         <TextView
-                app:windSpeedFormat="@{infoWeather}"
+                app:windSpeedFormat="@{infoWeather.wind.speed}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/wind_speed" app:layout_constraintStart_toStartOf="parent"

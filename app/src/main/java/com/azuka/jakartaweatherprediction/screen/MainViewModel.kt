@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.azuka.jakartaweatherprediction.entities.Info
 import com.azuka.jakartaweatherprediction.entities.Jakarta
 import com.azuka.jakartaweatherprediction.entities.ForecastResponse
+import com.azuka.jakartaweatherprediction.entities.WeatherResponse
 import com.azuka.jakartaweatherprediction.formatToDate
 import com.azuka.jakartaweatherprediction.network.WeatherApi
 import com.azuka.jakartaweatherprediction.toDate
@@ -21,9 +22,10 @@ import java.util.*
 class MainViewModel : ViewModel(){
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val _cityInfo = MutableLiveData<ForecastResponse>()
-    val cityInfo: LiveData<ForecastResponse>
-        get() = _cityInfo
+
+    private val _forecast = MutableLiveData<ForecastResponse>()
+    val forecast: LiveData<ForecastResponse>
+        get() = _forecast
 
     private val _infoWeatherList= MutableLiveData<List<Info>>()
     val infoWeatherList: LiveData<List<Info>>
@@ -33,45 +35,58 @@ class MainViewModel : ViewModel(){
     val todayDate: LiveData<Long>
         get() = _todayDate
 
-    private var timeZone: TimeZone = TimeZone.getDefault()
-
-    val todayString = Transformations.map(todayDate, { today ->
+    val todayString = Transformations.map(todayDate) { today ->
         val dt = Date(today)
         dt.formatToDate(timeZone = TimeZone.getDefault())
-    })
+    }
 
     val hourlyWeatherToday: LiveData<List<Info>>
-        get() = Transformations.switchMap(infoWeatherList, {
+        get() = Transformations.switchMap(infoWeatherList) {
             val _hourlyWeatherToday = MutableLiveData<List<Info>>()
             val filteredList = it.filter { info ->
-                info.dateText.toDate()!!.formatToDate().equals(todayString.value)
+                info.dateText.toDate()!!.formatToDate() == todayString.value
             }.toList()
             _hourlyWeatherToday.value = filteredList
             _hourlyWeatherToday
-        })
+        }
+
+    private val _currentWeather = MutableLiveData<WeatherResponse>()
+    val currentWeather: LiveData<WeatherResponse> = _currentWeather
 
     init {
         _todayDate.value = System.currentTimeMillis()
-        getWeather()
+        getCurrentWeather()
+        getForecast()
     }
 
-
-    fun getWeather() {
+    fun getForecast() {
         coroutineScope.launch {
-            val getWeatherDeferred = WeatherApi.retrofitService
-                .getWeatherByCoordinate(WeatherApi.API_KEY, Jakarta().coordinate.lat, Jakarta().coordinate.lon)
+            val getForecastDeferred = WeatherApi.retrofitService
+                .getForecastByCoordinate(WeatherApi.API_KEY, Jakarta().coordinate.lat, Jakarta().coordinate.lon)
 
             try {
-                val result = getWeatherDeferred.await()
-                _cityInfo.value = result
-                _infoWeatherList.value = cityInfo.value!!.list
-                Log.i("ViewModel", "getWeather() count ${result.count}")
+                val result = getForecastDeferred.await()
+                _forecast.value = result
+                _infoWeatherList.value = forecast.value!!.list
+                Log.i("ViewModel", "getForecast() count ${result.count}")
             } catch (e: Exception){
-                Log.i("ViewModel", "getWeather() ${e.message}")
+                Log.i("ViewModel", "getForecast() ${e.message}")
             }
         }
     }
 
+    fun getCurrentWeather() {
+        coroutineScope.launch {
+            val getWeatherDeferred = WeatherApi.retrofitService
+                .getCurrentWeatherByCoordinate(WeatherApi.API_KEY, Jakarta().coordinate.lat, Jakarta().coordinate.lon)
+            try {
+                val result = getWeatherDeferred.await()
+                _currentWeather.value = result
+            } catch (e: Exception){
+                Log.i("ViewModel", "getCurrentWeather() ${e.message}")
+            }
+        }
+    }
 
     override fun onCleared() {
         super.onCleared()

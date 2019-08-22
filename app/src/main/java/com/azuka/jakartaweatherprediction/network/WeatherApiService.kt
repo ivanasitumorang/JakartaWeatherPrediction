@@ -1,6 +1,7 @@
 package com.azuka.jakartaweatherprediction.network
 
 import com.azuka.jakartaweatherprediction.entities.ForecastResponse
+import com.azuka.jakartaweatherprediction.entities.WeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -28,24 +29,32 @@ private val retrofit = Retrofit.Builder()
 
 interface WeatherApiService {
     @GET("data/2.5/weather")
-    fun getWeatherByName(
+    fun getForecastByName(
         @Query("appid") apiKey: String,
         @Query("q") locationName: String
     ) : Deferred<ForecastResponse>
 
     @GET("data/2.5/weather")
-    fun getWeatherById(
+    fun getForecastById(
         @Query("appid") apiKey: String,
         @Query("id") cityId: String
     ) : Deferred<ForecastResponse>
 
     @GET("data/2.5/forecast")
-    fun getWeatherByCoordinate(
+    fun getForecastByCoordinate(
         @Query("appid") apiKey: String,
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("units") unit: String = "metric"
     ) : Deferred<ForecastResponse>
+
+    @GET("data/2.5/weather")
+    fun getCurrentWeatherByCoordinate(
+        @Query("appid") apiKey: String,
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+        @Query("units") unit: String = "metric"
+    ) : Deferred<WeatherResponse>
 }
 
 object WeatherApi {
