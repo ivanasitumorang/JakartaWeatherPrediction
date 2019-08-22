@@ -18,6 +18,7 @@
                 android:textAlignment="center" android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="@+id/wind_speed"/>
         <ImageView
+                app:weatherIcon="@{infoWeather.weather[0].icon}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" app:srcCompat="@mipmap/ic_launcher_round"
                 android:id="@+id/icon"

@@ -1,8 +1,11 @@
 package com.azuka.jakartaweatherprediction
 
+import android.graphics.drawable.Drawable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.azuka.jakartaweatherprediction.entities.Info
+import com.squareup.picasso.Picasso
 
 //http://openweathermap.org/img/wn/02d@2x.png
 
@@ -25,4 +28,14 @@ fun TextView.setTemperature(infoWeather: Info?){
     infoWeather?.let {
         text = String.format(context.getString(R.string.degree_celcius_format), infoWeather.main.temperature)
     }
+}
+
+@BindingAdapter("weatherIcon")
+fun ImageView.setWeatherIcon(url: String?){
+    val imageUrl = "http://openweathermap.org/img/wn/${url}@2x.png"
+    Picasso.get()
+        .load(imageUrl)
+        .placeholder(R.drawable.loading_animation)
+        .error(R.drawable.ic_broken_image)
+        .into(this)
 }

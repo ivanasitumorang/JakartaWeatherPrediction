@@ -1,7 +1,6 @@
 package com.azuka.jakartaweatherprediction.network
 
-import com.azuka.jakartaweatherprediction.entities.Info
-import com.azuka.jakartaweatherprediction.entities.WeatherResponse
+import com.azuka.jakartaweatherprediction.entities.ForecastResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -32,13 +31,13 @@ interface WeatherApiService {
     fun getWeatherByName(
         @Query("appid") apiKey: String,
         @Query("q") locationName: String
-    ) : Deferred<WeatherResponse>
+    ) : Deferred<ForecastResponse>
 
     @GET("data/2.5/weather")
     fun getWeatherById(
         @Query("appid") apiKey: String,
         @Query("id") cityId: String
-    ) : Deferred<WeatherResponse>
+    ) : Deferred<ForecastResponse>
 
     @GET("data/2.5/forecast")
     fun getWeatherByCoordinate(
@@ -46,7 +45,7 @@ interface WeatherApiService {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("units") unit: String = "metric"
-    ) : Deferred<WeatherResponse>
+    ) : Deferred<ForecastResponse>
 }
 
 object WeatherApi {

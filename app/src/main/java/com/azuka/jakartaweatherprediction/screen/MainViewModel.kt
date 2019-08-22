@@ -7,7 +7,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.azuka.jakartaweatherprediction.entities.Info
 import com.azuka.jakartaweatherprediction.entities.Jakarta
-import com.azuka.jakartaweatherprediction.entities.WeatherResponse
+import com.azuka.jakartaweatherprediction.entities.ForecastResponse
 import com.azuka.jakartaweatherprediction.formatToDate
 import com.azuka.jakartaweatherprediction.network.WeatherApi
 import com.azuka.jakartaweatherprediction.toDate
@@ -21,8 +21,8 @@ import java.util.*
 class MainViewModel : ViewModel(){
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val _cityInfo = MutableLiveData<WeatherResponse>()
-    val cityInfo: LiveData<WeatherResponse>
+    private val _cityInfo = MutableLiveData<ForecastResponse>()
+    val cityInfo: LiveData<ForecastResponse>
         get() = _cityInfo
 
     private val _infoWeatherList= MutableLiveData<List<Info>>()

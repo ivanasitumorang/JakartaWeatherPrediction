@@ -34,9 +34,5 @@ class MainActivity : AppCompatActivity() {
                 adapter.submitList(infoList)
             }
         })
-
-//        Log.i("TimeZone", TimeZone.getDefault().rawOffset.toString())
-//        Log.i("CurrentTimeMillis", System.currentTimeMillis().toString())
-//        Log.i("CurrentTimeFormat", Date(System.currentTimeMillis()).toString())
     }
 }
