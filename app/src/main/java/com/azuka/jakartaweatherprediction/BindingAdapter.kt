@@ -3,8 +3,6 @@ package com.azuka.jakartaweatherprediction
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.azuka.jakartaweatherprediction.entities.Info
-import com.azuka.jakartaweatherprediction.entities.Main
 import com.squareup.picasso.Picasso
 
 //http://openweathermap.org/img/wn/02d@2x.png
@@ -27,6 +25,13 @@ fun TextView.setWindSpeed(windSpeed: Double?){
 fun TextView.setTemperature(temp: Double?){
     temp?.let {
         text = String.format(context.getString(R.string.degree_celcius_format), temp)
+    }
+}
+
+@BindingAdapter("humidityFormat")
+fun TextView.setHumidity(humadity: Double?){
+    humadity?.let {
+        text = String.format(context.getString(R.string.humidity_format), humadity)
     }
 }
 

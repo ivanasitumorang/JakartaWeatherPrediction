@@ -5,43 +5,77 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginBottom="16dp">
 
         <TextView
                 app:temperatureFormat="@{infoWeather.main.temperature}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/temperature"
-                app:layout_constraintTop_toBottomOf="@+id/icon"
-                app:layout_constraintStart_toStartOf="@+id/wind_speed" tools:text="35"
-                android:textAlignment="center" android:textColor="@android:color/black"
-                app:layout_constraintEnd_toEndOf="@+id/wind_speed"/>
+                tools:text="35"
+                android:textAlignment="textEnd"
+                android:textColor="@color/white"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="@+id/wind_speed" android:textStyle="bold"/>
         <ImageView
                 app:weatherIcon="@{infoWeather.weather[0].icon}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" app:srcCompat="@mipmap/ic_launcher_round"
+                android:layout_width="40dp"
+                android:layout_height="40dp" app:srcCompat="@mipmap/ic_launcher_round"
                 android:id="@+id/icon"
-                app:layout_constraintStart_toStartOf="@+id/wind_speed"
-                app:layout_constraintEnd_toEndOf="@+id/wind_speed" app:layout_constraintTop_toBottomOf="@+id/time"
-        />
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/weather_description"
+                app:layout_constraintStart_toStartOf="@+id/weather_description"/>
         <TextView
                 app:timeFormat="@{infoWeather.dateText}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/time" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="@+id/wind_speed"
-                android:textAlignment="center" tools:text="09.00"
-                android:textColor="@android:color/black"
-                app:layout_constraintEnd_toEndOf="@+id/wind_speed"/>
+                android:id="@+id/time"
+                android:textAlignment="textStart" tools:text="09.00"
+                android:textColor="@color/white"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/weather_description" android:textStyle="bold"/>
         <TextView
                 app:windSpeedFormat="@{infoWeather.wind.speed}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/wind_speed"
+                tools:text="9.75 m/s"
+                android:textColor="@color/white" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp" app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+                app:layout_constraintStart_toEndOf="@+id/textView2" android:layout_marginStart="8dp"
+                android:textAlignment="textEnd" android:textStyle="bold"/>
+        <TextView
+                android:text="@string/temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/wind_speed" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/temperature" tools:text="9.75 m/s"
-                android:textColor="@android:color/black" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"/>
+                android:id="@+id/textView" android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@+id/textView2" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/textView2"/>
+        <TextView
+                android:text="@string/wind_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2" android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/weather_description"
+                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/wind_speed"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"/>
+        <TextView
+                android:text="@{infoWeather.weather[0].description}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/weather_description" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/icon" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAlignment="center" tools:text="Dark Cloud"
+                android:textColor="@color/white" android:textStyle="bold" android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/time"
+                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/textView2"
+                android:layout_marginStart="24dp" android:layout_marginEnd="24dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Jakarta Weather Prediction</string>
     <string name="windspeed_format">%.2f m/s</string>
+    <string name="humidity_format">Humidity: %.0f%%</string>
     <string name="degree_celcius_format">%.2f\u2103</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="temperature">Temperature</string>
+    <string name="date">Today, %s</string>
 </resources>
