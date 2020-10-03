@@ -69,7 +69,6 @@ class MainViewModel : ViewModel() {
                 withContext(Dispatchers.Main) {
                     _forecast.value = result
                     _infoWeatherList.value = forecast.value!!.list
-
                 }
                 Log.i("ViewModel", "getForecast() count ${result.count}")
             } catch (e: Exception) {
